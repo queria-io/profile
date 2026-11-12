@@ -1,0 +1,9 @@
+{
+  "version": "fixture",
+  "tables": {
+    "profile.company": [
+      "company/company/shard=771/data_0.parquet",
+      "company/company/shard=860/data_0.parquet"
+    ]
+  }
+}
