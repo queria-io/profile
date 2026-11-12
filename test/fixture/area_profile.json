@@ -1,0 +1,10 @@
+{
+  "version": "fixture",
+  "tables": {
+    "profile.city": ["area/city.parquet"],
+    "profile.small_area": [
+      "area/small_area/prefecture_code=08/data_0.parquet",
+      "area/small_area/prefecture_code=13/data_0.parquet"
+    ]
+  }
+}

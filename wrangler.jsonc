@@ -1,0 +1,24 @@
+// プロファイル API の Worker (DESIGN.md)
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "queria-profile",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-12-01",
+  "account_id": "57c6a116efc637fc3f21d0affea15508",
+  // profile.queria.io で出す。workers.dev は計測用に残す
+  "workers_dev": true,
+  "preview_urls": false,
+  "routes": [{ "pattern": "profile.queria.io", "custom_domain": true }],
+  // データセットの置き場。FDL のリポジトリは datasets.storage_key のプレフィックスにある
+  "r2_buckets": [{ "binding": "DATA", "bucket_name": "queria" }],
+  "vars": {
+    // FDL のリポジトリ (datasets.storage_key + "/")。refs/heads/main が指すバージョンを読む (src/source.ts)
+    "AREA_PROFILE_SOURCE": "644fc4c7-a040-4ac4-9f95-e17002dad168/",
+    "COMPANY_PROFILE_SOURCE": "d7520fbe-bf27-4beb-85cb-b225336421e5/",
+  },
+  // IP ごとの回数の上限 (src/index.ts)。費用を守るためのもので、ふつうの使い方では当たらない高さ
+  "ratelimits": [
+    { "name": "LIMITER", "namespace_id": "3101", "simple": { "limit": 300, "period": 60 } },
+  ],
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+}
